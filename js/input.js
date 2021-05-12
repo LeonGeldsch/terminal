@@ -8,6 +8,13 @@ var currentIndex = allInputCharacterElements.length-1;
 
 var animationIndex = 0;
 
+const helpText = "<p>you typed in help but there is no help</p>";
+
+const nickText = "Nick ist ein cooler dude";
+
+const noSuchCommandText = "no such command";
+
+const inputLineText = '<p>Tuff-OS [Version 1.0.0]</p><p>(C) Leon Geldsch. All rights reserved.</p><div class="command-input-wrapper"><p>C:\Users\Leon></p><div class="command-input" id="command-input"><p class="input-character">a</p><p class="input-character selected-character">b</p><p class="input-character">c</p><p class="input-character">d</p><p class="input-character">e</p><p class="input-character">f</p><p class="input-character"></p></div></div>';
 
 
 window.addEventListener('keydown', (e) => {
@@ -147,11 +154,16 @@ function submitCommand () {
     let command = getCommand();
     switch (command) {
         case "help":
-            createNewLine("you typed in help but there is no help");
+            createNewLine(helpText);
+            break;
+        case "Nick":
+            createNewLine(nickText);
             break;
         default:
+            createNewLine(noSuchCommandText);
             break;
     }
+    createNewLine(inputLineText);
 }
 
 function createNewLine (content) {
