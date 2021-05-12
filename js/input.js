@@ -20,6 +20,8 @@ const ostdeutschlandText = "<a href='https://youtu.be/LQm4I_KZmog' target='_blan
 
 const moText = "Pshhhh... Mo is studying. Don't disturb her.";
 
+const rubyText = "RubyHeart in chat <img height='16' src='./img/RubyHeart.png'>";
+
 window.addEventListener('keydown', (e) => {
     console.log(e);
     switch (e.key) {
@@ -172,7 +174,10 @@ function submitCommand () {
             break;
         case "mo":
             createNewLine(moText);
-            break;    
+            break;
+        case "ruby":
+            createNewLine(rubyText);
+            break;
         default:
             createNewLine(noSuchCommandText);
             break;
