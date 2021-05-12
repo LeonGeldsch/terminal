@@ -18,6 +18,7 @@ const friederText = "Frieder ist auch ein dude";
 
 const ostdeutschlandText = "<a href='https://youtu.be/LQm4I_KZmog' target='_blank'>https://youtu.be/LQm4I_KZmog</a>";
 
+const moText = "Pshhhh... Mo is studying. Don't disturb her.";
 
 window.addEventListener('keydown', (e) => {
     console.log(e);
@@ -169,6 +170,9 @@ function submitCommand () {
         case "ostdeutschland":
             createNewLine(ostdeutschlandText);
             break;
+        case "mo":
+            createNewLine(moText);
+            break;    
         default:
             createNewLine(noSuchCommandText);
             break;
