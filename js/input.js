@@ -1,12 +1,10 @@
-const COMMAND_INPUT = document.querySelector('#command-input');
+var commandInput = document.querySelector('#command-input');
 
 const MAIN_DIV = document.querySelector('.main');
 
-var allInputCharacterElements = document.querySelectorAll('.input-character');
+var allInputCharacterElements = document.querySelectorAll('#command-input .input-character');
 
-var currentIndex = allInputCharacterElements.length-1;
-
-var animationIndex = 0;
+var currentIndex = 0;
 
 const helpText = "<p>you typed in help but there is no help</p>";
 
@@ -14,7 +12,9 @@ const nickText = "Nick ist ein cooler dude";
 
 const noSuchCommandText = "no such command";
 
-const inputLineText = '<p>Tuff-OS [Version 1.0.0]</p><p>(C) Leon Geldsch. All rights reserved.</p><div class="command-input-wrapper"><p>C:\Users\Leon></p><div class="command-input" id="command-input"><p class="input-character">a</p><p class="input-character selected-character">b</p><p class="input-character">c</p><p class="input-character">d</p><p class="input-character">e</p><p class="input-character">f</p><p class="input-character"></p></div></div>';
+const inputLineText = '<div class="command-input-wrapper"><p>C:\\Users\\Leon></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>';
+
+
 
 
 window.addEventListener('keydown', (e) => {
@@ -111,15 +111,17 @@ window.addEventListener('keydown', (e) => {
 function addCharacter (character) {
     let newChar = document.createElement('p');
     newChar.classList.add('input-character');
+    newChar.id = 'input-character';
     newChar.innerHTML = character;
-    COMMAND_INPUT.insertBefore(newChar, COMMAND_INPUT.children[currentIndex]);
+    commandInput.insertBefore(newChar, commandInput.children[currentIndex]);
     updateInputCharacterElements();
-    incrementIndex();
+    currentIndex++
+    updateIndex();
 }
 
 function removeCharacter () {
     if (currentIndex > 0) {
-        COMMAND_INPUT.removeChild(allInputCharacterElements[currentIndex-1]);
+        commandInput.removeChild(allInputCharacterElements[currentIndex-1]);
         decrementIndex();
         updateInputCharacterElements();
     }
@@ -147,7 +149,7 @@ function updateIndex () {
 }
 
 function updateInputCharacterElements () {
-    allInputCharacterElements = document.querySelectorAll('.input-character');
+    allInputCharacterElements = document.querySelectorAll('#input-character');
 }
 
 function submitCommand () {
@@ -156,14 +158,22 @@ function submitCommand () {
         case "help":
             createNewLine(helpText);
             break;
-        case "Nick":
+        case "nick":
             createNewLine(nickText);
             break;
         default:
             createNewLine(noSuchCommandText);
             break;
     }
+    commandInput.id = "";
+    for (let i = 0; i < allInputCharacterElements.length; i++) {
+        allInputCharacterElements[i].id = "";
+    }
     createNewLine(inputLineText);
+    updateInputCharacterElements();
+    commandInput = document.querySelector('#command-input');
+    currentIndex = 0;
+    updateIndex();
 }
 
 function createNewLine (content) {
