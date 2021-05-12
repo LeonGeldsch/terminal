@@ -23,8 +23,8 @@ const moText = "Pshhhh... Mo is studying. Don't disturb her.";
 const rubyText = "RubyHeart in chat <img height='16' src='./img/RubyHeart.png'>";
 
 window.addEventListener('keydown', (e) => {
-    console.log(e);
-    switch (e.key) {
+    console.log(e.key);
+    switch (e.key || e.inputType) {
         case "Backspace":
             removeCharacter();
             break;
@@ -37,85 +37,13 @@ window.addEventListener('keydown', (e) => {
         case " ":
             addCharacter("&nbsp");
             break;
-        case "Escape":
-            break;
-        case "Tab":
-            break;
-        case "CapsLock":
-            break;
-        case "Shift":
-            break;
-        case "Control":
-            break;
-        case "OS":
-            break;
-        case "Alt":
-            break;
-        case "ControlAltGraph":
-            break;
-        case "ContextMenu":
-            break;
-        case "ArrowUp":
-            break;
-        case "ArrowDown":
-            break;
-        case "Delete":
-            break;
-        case "Insert":
-            break;
-        case "Home":
-            break;
-        case "End":
-            break;
-        case "PageDown":
-            break;
-        case "PageUp":
-            break;
-        case "ScrollLock":
-            break;
-        case "Pause":
-            break;
-        case "F1":
-            break;
-        case "F2":
-            break;
-        case "F3":
-            break;
-        case "F4":
-            break;
-        case "F5":
-            break;
-        case "F6":
-            break;
-        case "F7":
-            break;
-        case "F8":
-            break;
-        case "F9":
-            break;
-        case "F10":
-            break;
-        case "F11":
-            break;
-        case "F12":
-            break;
-        case "NumLock":
-            break;
-        case "Dead":
-            break;
-        case "Enter":
-            submitCommand();
-            break;
         default:
+            if (e.key.length > 1) break;
             addCharacter(e.key);
             break;
     }
 });
 
-MAIN_DIV.addEventListener('focusin', () => {
-    console.log("test");
-    prompt();
-});
 
 function addCharacter (character) {
     let newChar = document.createElement('p');
