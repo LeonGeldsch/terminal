@@ -112,6 +112,10 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
+MAIN_DIV.addEventListener('focusin', () => {
+    console.log("test");
+    prompt();
+});
 
 function addCharacter (character) {
     let newChar = document.createElement('p');
