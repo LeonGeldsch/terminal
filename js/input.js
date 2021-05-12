@@ -6,15 +6,17 @@ var allInputCharacterElements = document.querySelectorAll('#command-input .input
 
 var currentIndex = 0;
 
-const helpText = "<p>you typed in help but there is no help</p>";
-
-const nickText = "Nick ist ein cooler dude";
-
 const noSuchCommandText = "no such command";
 
 const inputLineText = '<div class="command-input-wrapper"><p>C:\\Users\\Leon></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>';
 
+const helpText = "you typed in help but there is no help";
 
+const nickText = "Nick ist ein cooler dude";
+
+const friederText = "Frieder ist auch ein dude";
+
+const ostdeutschlandText = "<a href='https://youtu.be/LQm4I_KZmog' target='_blank'>https://youtu.be/LQm4I_KZmog</a>";
 
 
 window.addEventListener('keydown', (e) => {
@@ -160,6 +162,12 @@ function submitCommand () {
             break;
         case "nick":
             createNewLine(nickText);
+            break;
+        case "frieder":
+            createNewLine(friederText);
+            break;
+        case "ostdeutschland":
+            createNewLine(ostdeutschlandText);
             break;
         default:
             createNewLine(noSuchCommandText);
