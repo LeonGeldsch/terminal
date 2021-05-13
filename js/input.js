@@ -34,7 +34,7 @@ const moText = "Pshhhh... Mo is studying. Don't disturb her.";
 
 const rubyText = "RubyHeart in chat <img height='16' src='./img/RubyHeart.png'>";
 
-window.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', (e) => {
     console.log(e.key);
     switch (e.key || e.inputType) {
         case "Backspace":
