@@ -55,7 +55,6 @@ document.addEventListener('keydown', (e) => {
         default:
             if (e.key === "Unidentified") {
                 HIDDEN_INPUT.addEventListener('input', getHiddenInputValue);
-                HIDDEN_INPUT.removeEventListener('input', getHiddenInputValue);
             }
             if (e.key.length > 1) break;
             addCharacter(e.key);
@@ -67,6 +66,7 @@ document.addEventListener('keydown', (e) => {
 function getHiddenInputValue () {
     addCharacter(HIDDEN_INPUT.value);
     HIDDEN_INPUT.value = "";
+    HIDDEN_INPUT.removeEventListener('input', getHiddenInputValue);
 }
 
 
