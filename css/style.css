@@ -16,6 +16,7 @@ body {
     color: #ccc;
     letter-spacing: 0;
     cursor: default;
+    overflow-x: hidden;
 }
 
 a {
@@ -58,8 +59,8 @@ a {
     cursor: pointer;
 }
 
-.icon.clickable.help:focus-visible {
-    background-color: red;
+.icon.clickable.help {
+    position: relative;
 }
 
 .command-input {
@@ -97,11 +98,75 @@ a {
 }
 
 
+.help-wrapper {
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+
+.clippy {
+    transform: skew(30deg, 60deg);
+    transition: all ease-in-out 1s;
+    width: 150px;
+    height: 150px;
+}
+
+
+.clippy.active {
+    transform: skew(0);
+}
+
+
+.speech-bubble {
+    position: absolute;
+    background-color: #fff;
+    left: -100%;
+    top: 50%;
+    border-radius: 10px;
+    width: 100%;
+    color: #000;
+    padding: 5px;
+}
+
+.speech-bubble::after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    top: 10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    z-index: 5;
+    transform: rotate(45deg);
+}
+
+
+.clippy-image {
+    position: absolute;
+    left: 0;
+    top: 30%;
+    width: 100%;
+    height: auto;
+}
+
+
 .hidden-input {
     opacity: 0;
     cursor: default;
 }
 
+
+@keyframes testname {
+    from, 
+    to {
+        background-color: var(--text-color);
+    }
+    50% {        
+        background-color: transparent;
+    }
+}
 
 @keyframes blink {
     from, 

@@ -4,6 +4,10 @@ const MAIN_DIV = document.querySelector('.main');
 
 const HIDDEN_INPUT = document.querySelector('.hidden-input');
 
+const HELP_BUTTON = document.querySelector('#help-button');
+
+const CLIPPY = document.querySelector('#clippy');
+
 var allInputCharacterElements = document.querySelectorAll('#command-input .input-character');
 
 var currentIndex = 0;
@@ -52,6 +56,13 @@ window.addEventListener('keydown', (e) => {
 
 document.addEventListener('click', () => {
     HIDDEN_INPUT.focus();
+});
+
+HELP_BUTTON.addEventListener('click', () => {
+    CLIPPY.classList.toggle('active');
+    setTimeout(() => {
+        CLIPPY.classList.remove('active');
+    }, 2000);
 });
 
 
