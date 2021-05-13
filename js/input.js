@@ -8,7 +8,7 @@ var currentIndex = 0;
 
 const noSuchCommandText = "no such command";
 
-const inputLineText = '<div class="command-input-wrapper"><p>C:\\Users\\Leon></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>';
+const inputLineText = '<div class="command-input-wrapper"><p>C:\\Devs\\Leon></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>';
 
 const helpText = "you typed in help but there is no help";
 
@@ -36,6 +36,9 @@ window.addEventListener('keydown', (e) => {
             break;
         case " ":
             addCharacter("&nbsp");
+            break;
+        case "Enter":
+            submitCommand();;
             break;
         default:
             if (e.key.length > 1) break;
