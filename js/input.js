@@ -54,8 +54,10 @@ document.addEventListener('keydown', (e) => {
             break;
         default:
             if (e.key === "Unidentified") {
-                addCharacter(HIDDEN_INPUT.value);
-                HIDDEN_INPUT.value = "";
+                setTimeout(() => {
+                    addCharacter(HIDDEN_INPUT.value);
+                    HIDDEN_INPUT.value = "";
+                }, 100);
             }
             if (e.key.length > 1) break;
             addCharacter(e.key);
