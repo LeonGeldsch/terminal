@@ -54,16 +54,20 @@ document.addEventListener('keydown', (e) => {
             break;
         default:
             if (e.key === "Unidentified") {
-                setTimeout(() => {
-                    addCharacter(HIDDEN_INPUT.value);
-                    HIDDEN_INPUT.value = "";
-                }, 100);
+                HIDDEN_INPUT.addEventListener('input', getHiddenInputValue);
+                HIDDEN_INPUT.removeEventListener('input', getHiddenInputValue);
             }
             if (e.key.length > 1) break;
             addCharacter(e.key);
             break;
     }
 });
+
+
+function getHiddenInputValue () {
+    addCharacter(HIDDEN_INPUT.value);
+    HIDDEN_INPUT.value = "";
+}
 
 
 document.addEventListener('click', () => {
