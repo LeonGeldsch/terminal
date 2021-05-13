@@ -58,6 +58,10 @@ a {
     cursor: pointer;
 }
 
+.icon.clickable.help:focus-visible {
+    background-color: red;
+}
+
 .command-input {
     display: flex;
 }
@@ -90,6 +94,12 @@ a {
     background-color: var(--text-color);
     animation: 1s blink step-end infinite;
     animation-duration: inherit;
+}
+
+
+.hidden-input {
+    opacity: 0;
+    cursor: default;
 }
 
 

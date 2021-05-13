@@ -2,6 +2,8 @@ var commandInput = document.querySelector('#command-input');
 
 const MAIN_DIV = document.querySelector('.main');
 
+const HIDDEN_INPUT = document.querySelector('.hidden-input');
+
 var allInputCharacterElements = document.querySelectorAll('#command-input .input-character');
 
 var currentIndex = 0;
@@ -45,6 +47,11 @@ window.addEventListener('keydown', (e) => {
             addCharacter(e.key);
             break;
     }
+});
+
+
+document.addEventListener('click', () => {
+    HIDDEN_INPUT.focus();
 });
 
 
