@@ -8,9 +8,15 @@ const HELP_BUTTON = document.querySelector('#help-button');
 
 const CLIPPY = document.querySelector('#clippy');
 
+const FULLSCREEN_BUTTON = document.querySelector('#fullscreen-icon');
+
+const WINDOWED_BUTTON = document.querySelector('#windowed-icon');
+
 var allInputCharacterElements = document.querySelectorAll('#command-input .input-character');
 
 var currentIndex = 0;
+
+var helpTimeout;
 
 const noSuchCommandText = "no such command";
 
@@ -60,9 +66,22 @@ document.addEventListener('click', () => {
 
 HELP_BUTTON.addEventListener('click', () => {
     CLIPPY.classList.toggle('active');
-    setTimeout(() => {
+    clearTimeout(helpTimeout);
+    helpTimeout = setTimeout(() => {
         CLIPPY.classList.remove('active');
     }, 2000);
+});
+
+FULLSCREEN_BUTTON.addEventListener('click', () => {
+    FULLSCREEN_BUTTON.classList.toggle('disabled');
+    WINDOWED_BUTTON.classList.toggle('disabled');
+    document.body.requestFullscreen();
+});
+
+WINDOWED_BUTTON.addEventListener('click', () => {
+    FULLSCREEN_BUTTON.classList.toggle('disabled');
+    WINDOWED_BUTTON.classList.toggle('disabled');
+    document.exitFullscreen();
 });
 
 
