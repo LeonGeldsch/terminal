@@ -100,6 +100,10 @@ function addCharacter (character) {
     newChar.classList.add('input-character');
     newChar.id = 'input-character';
     newChar.innerHTML = character;
+    // jump to character on click
+    newChar.addEventListener('click', () => {
+        setIndex(Array.from(allInputCharacterElements).findIndex((element) => element === newChar));
+    });
     commandInput.insertBefore(newChar, commandInput.children[currentIndex]);
     updateInputCharacterElements();
     currentIndex++
