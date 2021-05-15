@@ -145,23 +145,23 @@ function updateInputCharacterElements () {
 
 function submitCommand () {
     let command = getCommand();
-    switch (command) {
-        case "help":
+    switch (command.toUpperCase()) {
+        case "HELP":
             createNewLine(helpText);
             break;
-        case "nick":
+        case "NICK":
             createNewLine(nickText);
             break;
-        case "frieder":
+        case "FRIEDER":
             createNewLine(friederText);
             break;
-        case "ostdeutschland":
+        case "OSTDEUTSCHLAND":
             createNewLine(ostdeutschlandText);
             break;
-        case "mo":
+        case "MO":
             createNewLine(moText);
             break;
-        case "ruby":
+        case "RUBY":
             createNewLine(rubyText);
             break;
         default:
