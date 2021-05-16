@@ -12,6 +12,8 @@ const FULLSCREEN_BUTTON = document.querySelector('#fullscreen-icon');
 
 const WINDOWED_BUTTON = document.querySelector('#windowed-icon');
 
+const CLIPPY_SPEECH_BUBBLE = document.querySelector('#clippy-speech-bubble')
+
 var allInputCharacterElements = document.querySelectorAll('#command-input .input-character');
 
 var currentIndex = 0;
@@ -22,9 +24,11 @@ const noSuchCommandText = "no such command";
 
 const inputLineText = '<div class="command-input-wrapper"><p>C:\\Devs\\Leon></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>';
 
-const helpText = "you typed in help but there is no help";
+const helpText = '<p>Welcome to my terminal! Type "start" for a walkthrough or "commands" for a (slightly incomplete) list of commands</p>';
 
 const nickText = "Nick ist ein cooler dude";
+
+const commandsText = "";
 
 const friederText = "Frieder ist auch ein dude";
 
@@ -33,6 +37,14 @@ const ostdeutschlandText = "<a href='https://youtu.be/LQm4I_KZmog' target='_blan
 const moText = "Pshhhh... Mo is studying. Don't disturb her.";
 
 const rubyText = "RubyHeart in chat <img height='16' src='./img/RubyHeart.png'>";
+
+const githubText = "<a href='https://github.com/LeonGeldsch' target='_blank'>https://github.com/LeonGeldsch</a>";
+
+const emailText = "leon.geldschlaeger@gmail.com";
+
+const collegeText = "Currently studying Webdesign & Development at SAE Institute Hamburg."
+
+
 
 document.addEventListener('keydown', (e) => {
     console.log(e.key);
@@ -148,6 +160,15 @@ function submitCommand () {
     switch (command.toUpperCase()) {
         case "HELP":
             createNewLine(helpText);
+            break;
+        case "GITHUB":
+            createNewLine(githubText);
+            break;
+        case "EMAIL":
+            createNewLine(emailText);
+            break;
+        case "COLLEGE":
+            createNewLine(collegeText);
             break;
         case "NICK":
             createNewLine(nickText);
