@@ -20,6 +20,13 @@ var currentIndex = 0;
 
 var helpTimeout;
 
+var scrollHeight;
+
+var scrollTop;
+
+var clientHeight;
+
+
 const noSuchCommandText = "no such command";
 
 const inputLineText = '<div class="command-input-wrapper"><p>C:\\Devs\\Leon></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>';
@@ -156,6 +163,9 @@ function updateInputCharacterElements () {
 }
 
 function submitCommand () {
+    scrollHeight = MAIN_DIV.scrollHeight;
+    scrollTop = MAIN_DIV.scrollTop;
+    clientHeight = MAIN_DIV.clientHeight;
     let command = getCommand();
     switch (command.toUpperCase()) {
         case "HELP":
@@ -198,7 +208,12 @@ function submitCommand () {
     commandInput = document.querySelector('#command-input');
     currentIndex = 0;
     updateIndex();
+    // scroll chat to bottom
+    if (scrollHeight - scrollTop - clientHeight < 1) {
+        MAIN_DIV.scrollTop = scrollHeight * 2;
+    }
 }
+
 
 function createNewLine (content) {
     let newLine = document.createElement('div');
@@ -212,6 +227,11 @@ function getCommand () {
         command += allInputCharacterElements[i].innerHTML;
     }
     return command;
+}
+
+
+function scrollChatToBottom () {    
+    console.log("scroll");
 }
 
 
