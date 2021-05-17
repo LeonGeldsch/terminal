@@ -47,6 +47,8 @@ var currentPath = ["Devs", "Leon"];
 
 const noSuchCommandText = "no such command";
 
+const pathDoesntExistText = "couldn't find that path";
+
 var inputLineText = `<div class="command-input-wrapper"><p>C:\\${currentPath.join('\\')}></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>`;
 
 const helpText = '<p>Welcome to my terminal! Type "start" for a walkthrough or "commands" for a (slightly incomplete) list of commands</p>';
@@ -259,6 +261,7 @@ function goToPath (path) {
             console.log("path exists");
         } else {
             console.log("path doesn't exist");
+            createNewLine(pathDoesntExistText);
             return;
         }
     }
