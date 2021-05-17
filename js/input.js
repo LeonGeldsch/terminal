@@ -223,7 +223,7 @@ function submitCommand () {
             listDirectory();
             break;
         default:
-            if (command.toUpperCase().split("&NBSP;")[0] === "CD") {
+            if (command.toUpperCase().split(";")[0] === "CD&NBSP") {
                 goToPath(command.split("&nbsp;")[1]);
             } else {
                 createNewLine(noSuchCommandText);
