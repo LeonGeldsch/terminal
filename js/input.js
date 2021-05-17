@@ -21,15 +21,33 @@ var currentIndex = 0;
 var helpTimeout;
 
 var scrollHeight;
-
 var scrollTop;
-
 var clientHeight;
+
+var filesObject = {
+    "Devs": {
+        "Leon": {
+            "Contact": {
+                "Email": "leon.geldschlaeger@gmail.com",
+                "Name": "Leon Geldschläger"
+            },
+            "Projects": {
+                "Snake Game": "https://leongeldsch.github.io/snake/",
+                "Discord Clone": "https://leongeldsch.github.io/discord-clone/"
+            }
+        },
+        "Ruby": {
+
+        }
+    }
+}
+
+var currentPath = ["Devs", "Leon"];
 
 
 const noSuchCommandText = "no such command";
 
-const inputLineText = '<div class="command-input-wrapper"><p>C:\\Devs\\Leon></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>';
+var inputLineText = `<div class="command-input-wrapper"><p>C:\\${currentPath.join('\\')}></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>`;
 
 const helpText = '<p>Welcome to my terminal! Type "start" for a walkthrough or "commands" for a (slightly incomplete) list of commands</p>';
 
@@ -54,7 +72,6 @@ const collegeText = "Currently studying Webdesign & Development at SAE Institute
 
 
 document.addEventListener('keydown', (e) => {
-    console.log(e.key);
     switch (e.key || e.inputType) {
         case "Backspace":
             removeCharacter();
@@ -69,7 +86,7 @@ document.addEventListener('keydown', (e) => {
             addCharacter("&nbsp");
             break;
         case "Enter":
-            submitCommand();;
+            submitCommand();
             break;
         default:
             if (e.key === "Unidentified") {
@@ -163,6 +180,7 @@ function updateInputCharacterElements () {
 }
 
 function submitCommand () {
+    // get scroll position data before adding new line
     scrollHeight = MAIN_DIV.scrollHeight;
     scrollTop = MAIN_DIV.scrollTop;
     clientHeight = MAIN_DIV.clientHeight;
@@ -195,8 +213,21 @@ function submitCommand () {
         case "RUBY":
             createNewLine(rubyText);
             break;
+        case "CD..":
+            goToParentPath();
+            break;
+        case "CD&NBSP;..":
+            goToParentPath();
+            break;
+        case "DIR":
+            listDirectory();
+            break;
         default:
-            createNewLine(noSuchCommandText);
+            if (command.toUpperCase().split("&NBSP;")[0] === "CD") {
+                goToPath(command.split("&nbsp;")[1]);
+            } else {
+                createNewLine(noSuchCommandText);
+            }
             break;
     }
     commandInput.id = "";
@@ -208,10 +239,31 @@ function submitCommand () {
     commandInput = document.querySelector('#command-input');
     currentIndex = 0;
     updateIndex();
-    // scroll chat to bottom
+    // scroll chat to bottom if already scrolled to bottom
     if (scrollHeight - scrollTop - clientHeight < 1) {
         MAIN_DIV.scrollTop = scrollHeight * 2;
     }
+}
+
+
+function goToPath (path) {
+    let testPath = currentPath;
+    let testFilesObject = filesObject;
+    testPath = testPath.concat(path.split("\\"));
+    console.log(testPath, testFilesObject);
+    // test if path exists
+    for (let i = 0; i < testPath.length; i++) {
+        console.log(testFilesObject);
+        if (testFilesObject[testPath[i]]) {
+            testFilesObject = testFilesObject[testPath[i]];
+            console.log("path exists");
+        } else {
+            console.log("path doesn't exist");
+            return;
+        }
+    }
+    currentPath = testPath;
+    updateInputLineText();
 }
 
 
@@ -220,6 +272,7 @@ function createNewLine (content) {
     newLine.innerHTML = content;
     MAIN_DIV.appendChild(newLine);
 }
+
 
 function getCommand () {
     let command = "";
@@ -230,8 +283,28 @@ function getCommand () {
 }
 
 
-function scrollChatToBottom () {    
-    console.log("scroll");
+function goToParentPath () {
+    if (currentPath.length >= 1) {
+        currentPath.pop();
+    }
+    updateInputLineText();
+}
+
+
+function updateInputLineText () {
+    inputLineText = `<div class="command-input-wrapper"><p>C:\\${currentPath.join('\\')}></p><div class="command-input" id="command-input"><p class="input-character selected-character" id="input-character"></p></div></div>`;
+}
+
+
+function listDirectory () {
+    let path = filesObject;
+    for (let i = 0; i < currentPath.length; i++) {
+        path = path[currentPath[i]];
+    }
+    Object.keys(path).forEach(key => {
+        console.log(key);
+        createNewLine(key);
+    });
 }
 
 
