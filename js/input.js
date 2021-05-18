@@ -20,6 +20,9 @@ var currentIndex = 0;
 
 var helpTimeout;
 
+var previousCommandsArray = [];
+var previousCommandsIndex = 0;
+
 var scrollHeight;
 var scrollTop;
 var clientHeight;
@@ -125,6 +128,12 @@ document.addEventListener('keydown', (e) => {
         case "ArrowRight":
             incrementIndex();
             break;
+        case "ArrowDown":
+            decrementPreviousCommandIndex();
+            break;
+        case "ArrowUp":
+            incrementPreviousCommandIndex();
+            break;
         case " ":
             addCharacter("&nbsp");
             break;
@@ -140,6 +149,28 @@ document.addEventListener('keydown', (e) => {
             break;
     }
 });
+
+
+function decrementPreviousCommandIndex () {
+    if (previousCommandsIndex > 0) previousCommandsIndex--;
+    emptyInput();
+    updatePreviousCommandsIndex();
+}
+
+
+function incrementPreviousCommandIndex () {
+    if (previousCommandsIndex < previousCommandsArray.length) previousCommandsIndex++;
+    emptyInput();
+    updatePreviousCommandsIndex();
+}
+
+function updatePreviousCommandsIndex () {
+    if (previousCommandsIndex > 0) {
+        previousCommandsArray[previousCommandsIndex-1].split("").forEach(char => addCharacter(char));
+    } else {
+        emptyInput();
+    }
+}
 
 
 function getHiddenInputValue () {
@@ -214,7 +245,7 @@ function setIndex (index) {
 
 function updateIndex () {
     updateInputCharacterElements();
-    document.querySelector('.selected-character').classList.remove('selected-character');
+    if (document.querySelector('.selected-character')) document.querySelector('.selected-character').classList.remove('selected-character');
     allInputCharacterElements[currentIndex].classList.add('selected-character');
 }
 
@@ -290,6 +321,14 @@ function submitCommand () {
     if (scrollHeight - scrollTop - clientHeight < 1) {
         MAIN_DIV.scrollTop = scrollHeight * 2;
     }
+    previousCommandsArray.unshift(command);
+    previousCommandsIndex = 0;
+}
+
+
+function emptyInput () {
+    commandInput.innerHTML = '<p class="input-character selected-character" id="input-character"></p>';
+    currentIndex = 0;
 }
 
 
