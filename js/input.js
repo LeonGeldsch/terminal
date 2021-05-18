@@ -26,35 +26,58 @@ var clientHeight;
 
 var filesObject = {
     "Devs": {
+        "title": "Devs",
         "type": "folder",
         "content": {
             "Leon": {
+                "title": "Leon",
                 "type": "folder",
                 "content": {
                     "Contact": {
+                        "title": "Contact",
                         "type": "folder",
                         "content": {
-                            "Email": {
+                            "email.txt": {
+                                "title": "email.txt",
                                 "type": "file",
                                 "content": "leon.geldschlaeger@gmail.com"
                             },
-                            "Name": {
+                            "name.txt": {
+                                "title": "name.txt",
                                 "type": "file",
                                 "content": "Leon Geldschläger"
+                            },
+                            "GitHub.txt": {
+                                "title": "GitHub.txt",
+                                "type": "file",
+                                "content": "<a href='https://github.com/LeonGeldsch' target='_blank'>https://github.com/LeonGeldsch</a>"
                             }
                         }
                     },
                     "Projects": {
+                        "title": "Projects",
                         "type": "folder",
                         "content": {
-                            "Snake Game": "https://leongeldsch.github.io/snake/",
-                            "Discord Clone": "https://leongeldsch.github.io/discord-clone/"
+                            "snake_game.txt": {
+                                "title": "snake_game.txt",
+                                "type": "file",
+                                "content": "https://leongeldsch.github.io/snake/"
+                            },
+                            "discord_clone.txt": {
+                                "title": "discord_clone.txt",
+                                "type": "file",
+                                "content": "https://leongeldsch.github.io/discord-clone/"
+                            }
                         }
                     }
                 }
             },
             "Ruby": {
-                
+                "title": "Ruby",
+                "type": "folder",
+                "content": {
+
+                }
             }
         }
     }
@@ -245,9 +268,13 @@ function submitCommand () {
         default:
             if (command.toUpperCase().split(";")[0] === "CD&NBSP") {
                 goToPath(command.split("&nbsp;")[1]);
-            } else {
-                createNewLine(noSuchCommandText);
+                break;
             }
+            if (matchAllFilesInCurrentDir(command)) {
+                createNewLine(matchAllFilesInCurrentDir(command));
+                break;
+            }
+            createNewLine(noSuchCommandText);
             break;
     }
     commandInput.id = "";
@@ -267,32 +294,73 @@ function submitCommand () {
 
 
 function goToPath (path) {
-    let testPath = currentPath;
-    let testFilesObject = filesObject;
+    let newPath = currentPath;
+
+    // split path string at slashes and backslashes
     let regex = new RegExp(/[\/|\\]/g);
-    //testPath = testPath.concat(path.split("\\"));
-    testPath = testPath.concat(path.split(regex));
-    console.log(testPath, testFilesObject);
+    newPath = newPath.concat(path.split(regex));
+
     // test if path exists
-    for (let i = 0; i < testPath.length; i++) {
-        try {
-            console.log(testFilesObject, testFilesObject[testPath[i]].type);
-            if (testFilesObject[testPath[i]].type === "folder") {
-                testFilesObject = testFilesObject[testPath[i]].content;
-                //console.log("path exists");
-            } else {
-                //console.log("that's a file not a folder");
-                createNewLine(pathDoesntExistText);
-                return;    
-            }
-        } catch (error) {
-            //console.log("path doesn't exist");
-            createNewLine(pathDoesntExistText);
-            return;
+    if (testPath(newPath) === true) {
+        currentPath = newPath;
+    } else {
+        createNewLine(pathDoesntExistText);
+    }
+    updateInputLineText();
+}
+
+
+function matchAllFilesInCurrentDir (string) {
+    // check if command matches file name
+    let allFilesInCurrentDir = getAllFilesInCurrentDirectory();
+    for (let i = 0; i < allFilesInCurrentDir.length; i++) {
+        if (allFilesInCurrentDir[i].title.toUpperCase() === string.toUpperCase()) {
+            return allFilesInCurrentDir[i].content;
         }
     }
-    currentPath = testPath;
-    updateInputLineText();
+    return false;
+}
+
+
+function testPath (path) {
+    let testFilesObject = filesObject;
+    for (let i = 0; i < path.length; i++) {
+        console.log(testFilesObject);
+        Object.values(testFilesObject).forEach(value => {
+            console.log(value.title, path);
+            if (value.title.toUpperCase() === path[i].toUpperCase()) {
+                path[i] = value.title;
+            }
+        });
+        if (typeof testFilesObject[path[i]] !== "undefined") {
+            if (testFilesObject[path[i]].type === "folder") {
+                testFilesObject = testFilesObject[path[i]].content;
+            } else {
+                return false;
+            }
+        } else {
+            //console.log("path doesn't exist");
+            return false;
+        }
+    }
+    //console.log("path exists");
+    return true;
+}
+
+
+function getAllFilesInCurrentDirectory () {
+    let allFiles = [];
+    let path = filesObject;
+    for (let i = 0; i < currentPath.length; i++) {
+        path = path[currentPath[i]].content;
+    }
+    Object.values(path).forEach(value => {
+        if (value.type === "file") {
+            allFiles.push(value);
+        }
+    });
+    console.log(allFiles);
+    return allFiles;
 }
 
 
