@@ -325,9 +325,8 @@ function matchAllFilesInCurrentDir (string) {
 function testPath (path) {
     let testFilesObject = filesObject;
     for (let i = 0; i < path.length; i++) {
-        console.log(testFilesObject);
+        // match command to path even with wrong casing
         Object.values(testFilesObject).forEach(value => {
-            console.log(value.title, path);
             if (value.title.toUpperCase() === path[i].toUpperCase()) {
                 path[i] = value.title;
             }
