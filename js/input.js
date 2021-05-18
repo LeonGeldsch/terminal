@@ -26,18 +26,36 @@ var clientHeight;
 
 var filesObject = {
     "Devs": {
-        "Leon": {
-            "Contact": {
-                "Email": "leon.geldschlaeger@gmail.com",
-                "Name": "Leon Geldschläger"
+        "type": "folder",
+        "content": {
+            "Leon": {
+                "type": "folder",
+                "content": {
+                    "Contact": {
+                        "type": "folder",
+                        "content": {
+                            "Email": {
+                                "type": "file",
+                                "content": "leon.geldschlaeger@gmail.com"
+                            },
+                            "Name": {
+                                "type": "file",
+                                "content": "Leon Geldschläger"
+                            }
+                        }
+                    },
+                    "Projects": {
+                        "type": "folder",
+                        "content": {
+                            "Snake Game": "https://leongeldsch.github.io/snake/",
+                            "Discord Clone": "https://leongeldsch.github.io/discord-clone/"
+                        }
+                    }
+                }
             },
-            "Projects": {
-                "Snake Game": "https://leongeldsch.github.io/snake/",
-                "Discord Clone": "https://leongeldsch.github.io/discord-clone/"
+            "Ruby": {
+                
             }
-        },
-        "Ruby": {
-
         }
     }
 }
@@ -251,16 +269,24 @@ function submitCommand () {
 function goToPath (path) {
     let testPath = currentPath;
     let testFilesObject = filesObject;
-    testPath = testPath.concat(path.split("\\"));
+    let regex = new RegExp(/[\/|\\]/g);
+    //testPath = testPath.concat(path.split("\\"));
+    testPath = testPath.concat(path.split(regex));
     console.log(testPath, testFilesObject);
     // test if path exists
     for (let i = 0; i < testPath.length; i++) {
-        console.log(testFilesObject);
-        if (testFilesObject[testPath[i]]) {
-            testFilesObject = testFilesObject[testPath[i]];
-            console.log("path exists");
-        } else {
-            console.log("path doesn't exist");
+        try {
+            console.log(testFilesObject, testFilesObject[testPath[i]].type);
+            if (testFilesObject[testPath[i]].type === "folder") {
+                testFilesObject = testFilesObject[testPath[i]].content;
+                //console.log("path exists");
+            } else {
+                //console.log("that's a file not a folder");
+                createNewLine(pathDoesntExistText);
+                return;    
+            }
+        } catch (error) {
+            //console.log("path doesn't exist");
             createNewLine(pathDoesntExistText);
             return;
         }
@@ -302,7 +328,7 @@ function updateInputLineText () {
 function listDirectory () {
     let path = filesObject;
     for (let i = 0; i < currentPath.length; i++) {
-        path = path[currentPath[i]];
+        path = path[currentPath[i]].content;
     }
     Object.keys(path).forEach(key => {
         console.log(key);
