@@ -259,6 +259,7 @@ function submitCommand () {
     scrollTop = MAIN_DIV.scrollTop;
     clientHeight = MAIN_DIV.clientHeight;
     let command = getCommand();
+    console.log(command.toUpperCase());
     switch (command.toUpperCase()) {
         case "HELP":
             createNewLine(helpText);
@@ -292,6 +293,18 @@ function submitCommand () {
             break;
         case "CD&NBSP;..":
             goToParentPath();
+            break;
+        case "CD/":
+            goToRootDir();
+            break;
+        case "CD\\":
+            goToRootDir();
+            break;
+        case "CD&NBSP;/":
+            goToRootDir();
+            break;
+        case "CD&NBSP;\\":
+            goToRootDir();
             break;
         case "DIR":
             listDirectory();
@@ -329,6 +342,12 @@ function submitCommand () {
 function emptyInput () {
     commandInput.innerHTML = '<p class="input-character selected-character" id="input-character"></p>';
     currentIndex = 0;
+}
+
+
+function goToRootDir () {
+    currentPath = [];
+    updateInputLineText();
 }
 
 
