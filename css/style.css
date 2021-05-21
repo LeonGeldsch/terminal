@@ -176,6 +176,14 @@ a {
 }
 
 
+.terminal-list-left {
+    width: 150px;
+}
+.terminal-list-right {
+    width: calc(100vw - 200px);
+}
+
+
 @keyframes testname {
     from, 
     to {

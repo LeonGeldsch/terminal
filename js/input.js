@@ -27,6 +27,7 @@ var scrollHeight;
 var scrollTop;
 var clientHeight;
 
+
 var filesObject = {
     "Devs": {
         "title": "Devs",
@@ -114,6 +115,30 @@ const githubText = "<a href='https://github.com/LeonGeldsch' target='_blank'>htt
 const emailText = "leon.geldschlaeger@gmail.com";
 
 const collegeText = "Currently studying Webdesign & Development at SAE Institute Hamburg."
+
+const cdText = "the change directory command";
+
+const nameText = "Leon Geldschläger";
+
+class Command {
+    constructor(command, description) {
+        this.command = command;
+        this.description = description;
+    }
+}
+
+var commandsArray = [
+    new Command ("help", "the help command"),
+    new Command ("cd", "change directory (go to directory relative to current one by default or start directory with drive name for global directory change"),
+    new Command ("cd..", "go up one directory"),
+    new Command ("cd/", "go to root directory"),
+    new Command ("dir", "lists all files and folders in the current directory"),
+    new Command ("GitHub", "My GitHub Profile"),
+    new Command ("Name", "My Name"),
+    new Command ("Email", "My Email"),
+    new Command ("College", "The college I go to"),
+    new Command ("commands", "a (slightly incomplete) list of all commands"),
+];
 
 
 
@@ -288,6 +313,12 @@ function submitCommand () {
         case "RUBY":
             createNewLine(rubyText);
             break;
+        case "NAME":
+            createNewLine(nameText);
+            break;
+        case "COMMANDS":
+            createNewLine(listAllCommands());
+            break;    
         case "CD..":
             goToParentPath();
             break;
@@ -461,5 +492,23 @@ function listDirectory () {
     });
 }
 
+
+function listAllCommands () {
+    let text = "";
+    commandsArray.forEach(command => {
+        text += `<div class="d-flex"><div class="terminal-list-left">${command.command}</div>`;
+        text += `<div class="terminal-list-right">${command.description}</div></div>`;
+    });
+    return text;
+}
+
+
+/*
+fetch('http://ip-api.com/json')
+.then(response => {
+    console.log(response);
+    return response.json();
+})
+*/
 
 updateIndex();
