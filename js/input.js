@@ -12,6 +12,8 @@ const FULLSCREEN_BUTTON = document.querySelector('#fullscreen-icon');
 
 const WINDOWED_BUTTON = document.querySelector('#windowed-icon');
 
+const CLOSE_BUTTON = document.querySelector('#close-icon');
+
 const CLIPPY_SPEECH_BUBBLE = document.querySelector('#clippy-speech-bubble')
 
 var allInputCharacterElements = document.querySelectorAll('#command-input .input-character');
@@ -223,6 +225,11 @@ HELP_BUTTON.addEventListener('click', () => {
     }, 2000);
 });
 
+CLOSE_BUTTON.addEventListener('click', () => {
+    window.close();
+});
+
+
 FULLSCREEN_BUTTON.addEventListener('click', () => {
     FULLSCREEN_BUTTON.classList.toggle('disabled');
     WINDOWED_BUTTON.classList.toggle('disabled');
@@ -329,6 +336,7 @@ function submitCommand () {
             break;
         case "START":
             createNewLine(startText);
+        case "":
             break;
         case "COMMANDS":
             createNewLine(listAllCommands());
