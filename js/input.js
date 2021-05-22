@@ -207,8 +207,12 @@ function getHiddenInputValue () {
 }
 
 
-document.addEventListener('click', () => {
+document.addEventListener('click', (e) => {
     HIDDEN_INPUT.focus();
+    console.log(e.target);
+    if (e.target.matches(".main")) {
+        setIndex(allInputCharacterElements.length-1);
+    }
 });
 
 HELP_BUTTON.addEventListener('click', () => {
@@ -269,6 +273,11 @@ function setIndex (index) {
     if (index >= 0 && index < allInputCharacterElements.length) currentIndex = index;
     updateIndex();
 }
+
+function setIndexToLastCharacter () {
+    setIndex(allInputCharacterElements.length);
+}
+
 
 function updateIndex () {
     updateInputCharacterElements();
