@@ -120,6 +120,8 @@ const cdText = "the change directory command";
 
 const nameText = "Leon Geldschläger";
 
+const startText = "This hasn't been implemented yet, sorry! :(";
+
 class Command {
     constructor(command, description) {
         this.command = command;
@@ -315,6 +317,9 @@ function submitCommand () {
             break;
         case "NAME":
             createNewLine(nameText);
+            break;
+        case "START":
+            createNewLine(startText);
             break;
         case "COMMANDS":
             createNewLine(listAllCommands());
