@@ -195,7 +195,7 @@ function incrementPreviousCommandIndex () {
 
 function updatePreviousCommandsIndex () {
     if (previousCommandsIndex > 0) {
-        previousCommandsArray[previousCommandsIndex-1].split("").forEach(char => addCharacter(char));
+        previousCommandsArray[previousCommandsIndex-1].replaceAll("&nbsp;", String.fromCharCode(160)).split("").forEach(char => addCharacter(char));
     } else {
         emptyInput();
     }
@@ -247,7 +247,11 @@ function addCharacter (character) {
     let newChar = document.createElement('p');
     newChar.classList.add('input-character');
     newChar.id = 'input-character';
-    newChar.innerHTML = character;
+    if (character === "&nbsp;") {
+        newChar.innerHTML = String.fromCharCode(160);
+    } else {
+        newChar.innerHTML = character;
+    }
     // jump to character on click
     newChar.addEventListener('click', () => {
         setIndex(Array.from(allInputCharacterElements).findIndex((element) => element === newChar));
@@ -302,7 +306,7 @@ function submitCommand () {
     scrollTop = MAIN_DIV.scrollTop;
     clientHeight = MAIN_DIV.clientHeight;
     let command = getCommand();
-    console.log(command.toUpperCase());
+    //console.log(command.replaceAll("&nbsp;", " "));
     switch (command.toUpperCase()) {
         case "HELP":
             createNewLine(helpText);
@@ -387,6 +391,7 @@ function submitCommand () {
     if (scrollHeight - scrollTop - clientHeight < 1) {
         MAIN_DIV.scrollTop = scrollHeight * 2;
     }
+    console.log(command);
     previousCommandsArray.unshift(command);
     previousCommandsIndex = 0;
 }
